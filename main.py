@@ -35,9 +35,12 @@ def main():
             sprite.draw(screen)
         updateable.update(dt)
         for asteroid in asteroids:
-            if asteroid.collision(ship) == True:
-                print("Game over!")
+            if asteroid.collision(ship):
                 sys.exit("Game over!")
+            for shot in shots:
+                if asteroid.collision(shot):
+                    asteroid.split()
+                    shot.kill()
         pygame.display.flip()
         dt = clock.tick(60) / 1000
 
